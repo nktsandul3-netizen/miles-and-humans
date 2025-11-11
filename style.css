@@ -784,4 +784,98 @@ body {
         font-size: 1rem;
         width: 100%;
     }
+    <!-- 3D GRID -->
+<div id="neon-3d-grid"></div>
+
+<!-- SOFT BG PARALLAX -->
+<div class="bg-3d"></div>
+
+<!-- Партиклы для фона -->
+<div class="particles"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// Параллакс эффект для фона
+document.addEventListener('mousemove', e => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    const bg = document.querySelector('.bg-3d');
+    if (bg) bg.style.transform = `translate(${x}px,${y}px)`;
+});
+
+// 3D сетка
+const container = document.getElementById("neon-3d-grid");
+if (container) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 15, 28);
+    camera.rotation.x = -0.5;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+
+    const gridGeometry = new THREE.PlaneGeometry(80, 80, 40, 40);
+    const gridMaterial = new THREE.MeshBasicMaterial({
+        color: 0x43FFB3,
+        wireframe: true,
+        opacity: 0.35,
+        transparent: true
+    });
+    const grid = new THREE.Mesh(gridGeometry, gridMaterial);
+    grid.rotation.x = -Math.PI / 2;
+    scene.add(grid);
+
+    function animateWaves(time) {
+        const pos = gridGeometry.attributes.position;
+        for (let i = 0; i < pos.count; i++) {
+            const x = pos.getX(i), y = pos.getY(i);
+            const wave = Math.sin((x + time * 0.0008) * 0.6) * 0.7 +
+                         Math.cos((y + time * 0.0006) * 0.6) * 0.7;
+            pos.setZ(i, wave);
+        }
+        pos.needsUpdate = true;
+    }
+
+    document.addEventListener("mousemove", e => {
+        const dx = (e.clientX / window.innerWidth - 0.5) * 0.4;
+        const dy = (e.clientY / window.innerHeight - 0.5) * 0.2;
+        camera.rotation.x = -0.5 + dy;
+        camera.rotation.y = dx;
+    });
+
+    (function render(time) {
+        animateWaves(time);
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+    })();
+
+    window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+}
+
+// Создание частиц для фона
+function createParticles() {
+    const particlesContainer = document.querySelector('.particles');
+    if (!particlesContainer) return;
+
+    for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        particlesContainer.appendChild(particle);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', createParticles);
+</script>
+
+</body>
+</html>
 }
