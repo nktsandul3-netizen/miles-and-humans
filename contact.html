@@ -40,20 +40,18 @@
     z-index: -2;
   }
 
-  
-.bg-3d {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(circle at 15% 20%, rgba(67,255,179,0.35) 0%, transparent 60%),
-    radial-gradient(circle at 85% 80%, rgba(67,97,255,0.35) 0%, transparent 60%);
-  filter: blur(10px);
-  z-index: -1;
-}
-
+  .bg-3d {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(67, 255, 179, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(67, 97, 255, 0.08) 0%, transparent 50%);
+    z-index: -1;
+    transition: transform 0.1s linear;
+  }
 
   /* LANGUAGE SWITCHER */
   .lang-switcher {
@@ -825,6 +823,11 @@
 
 <body>
 
+<!-- 3D GRID -->
+<div id="neon-3d-grid"></div>
+
+<!-- SOFT BG PARALLAX -->
+<div class="bg-3d"></div>
 
 <!-- SUCCESS OVERLAY -->
 <div class="success-overlay" id="successOverlay">
