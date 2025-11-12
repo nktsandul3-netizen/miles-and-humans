@@ -714,3 +714,47 @@ body {
         font-size: 0.9rem;
     }
 }
+/* ====== существующие стили остаются без изменений ====== */
+
+/* =======================================
+   Улучшенная читаемость текста
+   ======================================= */
+:root {
+  --text-light: #FFFFFF; /* яркий белый */
+  --text-dim: #CFCFCF;   /* мягкий серый */
+}
+
+/* Главный заголовок */
+.home h1,
+.page-hero h1,
+.vacancy-title {
+  color: var(--text-light);
+  text-shadow:
+    0 0 8px rgba(0, 0, 0, 0.8),
+    0 0 16px rgba(67, 255, 179, 0.3);
+}
+
+/* Подзаголовок */
+.home p,
+.page-hero p,
+.vacancy-subtitle {
+  color: var(--text-dim);
+  text-shadow:
+    0 0 6px rgba(0, 0, 0, 0.7),
+    0 0 10px rgba(67, 97, 255, 0.2);
+}
+
+/* Меню и ссылки */
+.top-nav a {
+  color: var(--text-light);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+}
+
+/* Текст в карточках */
+.service-card p,
+.vacancy-card p {
+  color: #E5E5E5;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+
